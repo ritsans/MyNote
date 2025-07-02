@@ -39,12 +39,52 @@ VSCodeでターミナルを開いて、claudeと打つだけで、勝手にプ�
   
 * `/compact` で、現在の会話履歴は残しますが、コンテキストをサマリしたものだけを残します (tokenの節約になります)
 
-## 簡単な例：セッション終了時に通知音を鳴らす
+## Hocks (新機能) 
+hooks を設定するために `/hooks` カスタムスラッシュコマンドを使用できます。
+もしくは Claude Code の設定ファイル（`.claude/settings.json`）を直接編集することも可能。
 
-Claude Code を使っていると、AI がタスクを完了したタイミングが分かりにくいことがありますよね。じっとみてるのも時間もったいない気がする、そこでHooks を使ってセッション終了時に通知音を鳴らすことで、この問題を解決しようと思います。
-公式で音を鳴らす設定方法あるみたいですが、なんでか上手く動かんのでHooks利用したら上手くいくようになりました。
+### ここではコーディングが終わったらprettierでコードを自動整形するようにしましょう。
 
-### macOS での実装（動作確認済み）
+VScode使えば拡張機能でやれそうだけども。
+
+1. `/hocks`コマンドを実行
+
+2. どのタイミングで hooks が実行されるのかを選択。
+   4 つの *hooks event* が用意されています。
+
+   - PreToolUse - Before tool execution    ツール実行前
+
+   - PostToolUse - After tool execution　　ツール実行後
+
+   - Notification - When notifications are sent　　通知が送信されるタイミング
+
+   - Stop - Right before Claude concludes its response　これ以上応答がなくなったとき
+
+3. *matcher* を追加します。
+   matcher はどのツールが呼び出された後に hooks が実行されるかを指定できます。
+
+   Claude Code によって**ファイルが変更された場合**に prettier を実行してもらいたいので、`Write|Edit|MultiEdit` を入力します。`|` で区切ることで複数の matcher を指定可能。これにより、**ファイルの書き込み、編集、複数のファイルの編集**が行われた場合に このhooks が実行されます。
+
+4. hooks のコマンドを入力する
+
+   続いて hooks が呼び出されたときに実行されるコマンドを入力します。
+
+   例えばNPMコマンドなら`npx prettier --write './src/**/*.{js,ts,jsx,tsx,css,scss,md,json}`とか？
+
+5. 最後に hooks をどの場所に保存するかを選択します。
+
+   - `.claude/settings.local.json`: プロジェクト単位（ローカル）
+   - `.claude/settings.json`: プロジェクト単位
+   - `~/.claude/settings.json`: ユーザー単位（グローバル）
+
+以上で`.claude/settings.json`に追加したHockの項目が追加されているはずです。
+
+### 簡単な例：セッション終了時に通知音を鳴らす
+
+Claude Code を使っていると、AI がタスクを完了したタイミングが分かりにくいことがありますよね。じっとみてるのも時間もったいない。そこでHooks を使ってセッション終了時に通知音を鳴らすことで、この問題を解決しようと思います。
+Macの標準コマンド使ってるのでMacしか使えません。Windowsは音出すコマンド見つけてください。
+
+### macOS での実装
 
 `~/.claude/settings.json` に以下の設定を記述します：
 
