@@ -27,3 +27,6 @@ Claude Code を使っていると、AI がタスクを完了したタイミン�
 
 この設定では、`Stop` イベント（Claude Code が応答を終了するタイミング）で macOS のシステムサウンドを再生してくれます。
 上記の設定は macOS での`afplay` コマンドを使用しています。`afplay` は macOS に標準搭載されている音声再生コマンドです。
+
+参考リンク：
+https://zenn.dev/ksuke_sun/articles/b9f0cc0d89496b
