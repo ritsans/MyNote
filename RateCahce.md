@@ -43,3 +43,7 @@
 **トグルスイッチ**: 画面上部の「日本円に変換」でON/OFF切り替え
 
 **日本人向け表示**: 小数第1位までの四捨五入で表示
+
+トグルスイッチのtailwindcssのコード例：
+
+https://flowbite.com/docs/forms/toggle/
