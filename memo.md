@@ -110,3 +110,97 @@ const { publicUrl } = supabase.storage
 | 転送量         | 2GB/月                         |
 | 学習用途なら   | 数百画像レベルで無料で運用可能 |
 
+
+
+## 提案：React Router を導入して URL に意味を持たせる構成へ
+
+**React Router を導入して、URL を画面と対応付けましょう。**
+ これはユーザー体験・開発体験ともに得られるメリットが大きく、現在の実装に対する最小限の変更で実現可能です。
+
+------
+
+### 遷移の例（導入後の理想的な構造）
+
+| 画面               | パス         |
+| ------------------ | ------------ |
+| ランディングページ | `/`          |
+| ログイン           | `/login`     |
+| サインアップ       | `/signup`    |
+| ダッシュボード     | `/dashboard` |
+
+
+
+## React Router 導入手順（最小構成）
+
+1. パッケージインストール：
+
+```bash
+npm install react-router-dom
+```
+
+1. ルーティングの定義：
+
+**App.tsx**
+
+```react
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Dashboard from './pages/Dashboard';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+ページごとのコンポーネントを分離して使いまわし可能な状態にします。
+
+
+
+### 現在の実装との比較と互換性
+
+- **React Router に移行**すると、URL がそのまま「状態」となります。
+   例：`/login` にアクセスすれば Login ページが表示され、戻れば前のページに戻る。
+
+これにより状態管理も簡素になり、**URLがそのままアプリケーションの状態を表すようになります**。
+
+
+
+## サーバ設定における注意点
+
+React Router（`BrowserRouter`）を使う場合、サーバが **任意のURLでアクセスされた場合にも常に `index.html` を返す**必要があります。これは「SPAのルーティングはクライアント側が解釈する」ためです。
+
+### Nginx例：
+
+```
+location / {
+  try_files $uri /index.html;
+}
+```
+
+これを設定しないと、ブラウザが `/dashboard` に直接アクセスしたとき、404になります。
+
+ユーザービリティと保守性の両面で、**React Routerを導入してURLを明示的に使い分ける構成が望ましい**です。
+
+
+
+### 遷移の例（導入後の理想的な構造）
+
+| 画面               | パス         |
+| ------------------ | ------------ |
+| ランディングページ | `/`          |
+| ログイン           | `/login`     |
+| サインアップ       | `/signup`    |
+| ダッシュボード     | `/dashboard` |
