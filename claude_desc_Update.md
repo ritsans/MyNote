@@ -1,9 +1,6 @@
 ---
-
 # Project Information Update Command
-
 description: "Updates CLAUDE.md and desc.md with the latest information."
-
 ---
 
 * Carry out the following tasks in sequence.
