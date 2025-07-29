@@ -112,4 +112,28 @@ Claude 4モデルは、特にコードを扱う際に、テストや反復のた
 * 「ウェブ開発能力を示す印象的なデモを作成してください」
 * 「デザイン原則を適用してください：階層、コントラスト、バランス、動き」
 
-3. 
+
+### ccusage のBashコマンド
+
+今日のClaude消費トークン量を取得、過剰になっていないかチェックするスラッシュコマンドです
+
+
+
+```markdown
+---
+
+allowed-tools: Bash
+
+description: Run the ccusage package by itself to visualize Claude's consumption tokens.
+
+---
+
+# task
+
+Refer to today's consumption tokens to check for excessive consumption.
+
+## bash command
+
+- Display Daily Report : !`npx ccusage@latest daily`
+```
+
