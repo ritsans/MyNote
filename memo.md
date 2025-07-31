@@ -18,15 +18,16 @@
 
   * CSSなどを外部ファイルを参照している場合、パスがズレる可能性があるので実際にビルドしてからパスを確認すること。構造上、外部の/publicからSPA内部のファイルは参照できない。
 
+
 ### React Router v7を使う
 
-#### `pnpm add react-router`でプロジェクトにパッケージを追加
+~~#### `pnpm add react-router`でプロジェクトにパッケージを追加~~
 
-使用用途によって３つのモードがありFrameworkモードが推奨されているが
+~~使用用途によって３つのモードがありFrameworkモードが推奨されているが~~
 
-**Declarative**モードが従来の書き方に近い最もシンプルなモードなのでこちらを使うことになる。
+~~**Declarative**モードが従来の書き方に近い最もシンプルなモードなのでこちらを使うことになる。~~
 
-#### ↓こういうの
+~~#### ↓こういうの~~
 
 ```javascript
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
@@ -47,7 +48,7 @@ function App() {
 }
 ```
 
-日本語ドキュメントはここ参照https://react-router-docs-ja.techtalk.jp/
+日本語ドキュメントはここ参照https://react-router-docs-ja.techtalk.jp/~~
 
 
 
@@ -236,3 +237,7 @@ location / {
 | `/login`     | `<Login />`     | ログイン画面                     |
 | `/signup`    | `<Signup />`    | 新規登録画面                     |
 | `/dashboard` | `<Dashboard />` | 認証済みユーザーのダッシュボード |
+
+### 一時的にファイルを作成したい場合は
+
+- SQL文を作成するためsqlファイルなど一時的に作成したい場合は、/tempディレクトリ内に作成してください。ここはgitの追跡対象外のため開発に影響がでません。
