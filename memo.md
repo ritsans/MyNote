@@ -241,3 +241,12 @@ location / {
 ### 一時的にファイルを作成したい場合は
 
 - SQL文を作成するためsqlファイルなど一時的に作成したい場合は、/tempディレクトリ内に作成してください。ここはgitの追跡対象外のため開発に影響がでません。
+
+### Important instruction reminders
+- do only what you are instructed to do, no more, no less
+- edit existing files first, create new files only when essential
+- create documentation files (*.md, README, etc.) only if explicitly requested by user
+
+### Security reminders
+- warn before committing json and env files that may contain service API keys or special URLs
+- recommend adding these files to .gitignore
